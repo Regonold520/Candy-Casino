@@ -1,0 +1,342 @@
+[gd_scene load_steps=26 format=3 uid="uid://cg5f80hb0641d"]
+
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="2_3owbm"]
+[ext_resource type="Script" path="res://Scripts/Line.gd" id="2_aagd3"]
+[ext_resource type="Script" path="res://BuildUI.gd" id="6_02m8a"]
+[ext_resource type="Texture2D" uid="uid://br7xsj52lsfx7" path="res://UI/Build_Panel.png" id="6_w62r8"]
+[ext_resource type="Shader" path="res://Shaders/Scroll.gdshader" id="7_6bvyh"]
+[ext_resource type="Texture2D" uid="uid://cheeob25mgy0i" path="res://MiscSprites/Sprite-0008.png" id="7_yrwjh"]
+[ext_resource type="PackedScene" uid="uid://id6ruwa6b0a1" path="res://Conjurors/0_RedConj/red_conj.tscn" id="9_jvcn1"]
+[ext_resource type="FontFile" uid="uid://bjlux5js323vr" path="res://Texts/Fonts/VCRosdNEUE.ttf" id="9_mcs1p"]
+[ext_resource type="Script" path="res://Button.gd" id="10_pf3cx"]
+[ext_resource type="Texture2D" uid="uid://dy2f0ckkfc34h" path="res://MiscSprites/Box_Lower.png" id="10_ulgtg"]
+[ext_resource type="Texture2D" uid="uid://c5o1vabby7s1w" path="res://UI/Build_Icon.png" id="11_j3cto"]
+[ext_resource type="Texture2D" uid="uid://7rgedrndsyd4" path="res://MiscSprites/Box_Upper.png" id="11_qc2f8"]
+[ext_resource type="Script" path="res://UI/ShopMenu.gd" id="13_cttnr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1ty7"]
+shader = ExtResource("7_6bvyh")
+
+[sub_resource type="Animation" id="Animation_3xx7i"]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D/CanvasLayer/BuildUI:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(0.277392, 0.277392, 0.277392),
+"update": 0,
+"values": [Vector2(576, 124), Vector2(576, 353), Vector2(576, 301)]
+}
+
+[sub_resource type="Animation" id="Animation_4gm7p"]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D/CanvasLayer/BuildUI:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.9),
+"transitions": PackedFloat32Array(0.277392, 0.277392, 0.277392),
+"update": 0,
+"values": [Vector2(576, 301), Vector2(576, 353), Vector2(576, 124)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0rg2d"]
+_data = {
+"in": SubResource("Animation_3xx7i"),
+"out": SubResource("Animation_4gm7p")
+}
+
+[sub_resource type="Animation" id="Animation_38jeh"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.15932, 0.15932),
+"update": 0,
+"values": [Vector2(283, -30), Vector2(283, -81.46)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.15932, 0.15932),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u6efn"]
+_data = {
+"new_animation": SubResource("Animation_38jeh")
+}
+
+[sub_resource type="Animation" id="Animation_foe4k"]
+resource_name = "loop"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [-0.541816, 0.322886, -0.541052]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qgl8m"]
+_data = {
+"loop": SubResource("Animation_foe4k")
+}
+
+[sub_resource type="Animation" id="Animation_miv8d"]
+resource_name = "Grow"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.170755, 0.170755),
+"update": 0,
+"values": [Vector2(0.85, 0.85), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3viio"]
+resource_name = "Shrink"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.170755, 0.170755),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.85, 0.85)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oihan"]
+_data = {
+"Grow": SubResource("Animation_miv8d"),
+"Shrink": SubResource("Animation_3viio")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhcth"]
+size = Vector2(174.44, 273.18)
+
+[node name="MainGame" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.831373, 0.32549, 0.592157, 1)
+z_index = -255
+texture_filter = 1
+material = SubResource("ShaderMaterial_j1ty7")
+offset_left = -1537.0
+offset_top = -1109.0
+offset_right = 7115.0
+offset_bottom = 3552.0
+scale = Vector2(0.467316, 0.467316)
+texture = ExtResource("7_yrwjh")
+stretch_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_3owbm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="AddedText" type="Label" parent="Camera2D/CanvasLayer"]
+offset_left = 13.0
+offset_top = 6.0
+offset_right = 351.0
+offset_bottom = 102.0
+scale = Vector2(0.75755, 0.75755)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("9_mcs1p")
+theme_override_font_sizes/font_size = 70
+text = "0"
+vertical_alignment = 1
+
+[node name="BuildUI" type="Control" parent="Camera2D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 124.0
+offset_bottom = 124.0
+grow_horizontal = 2
+mouse_filter = 2
+script = ExtResource("6_02m8a")
+
+[node name="ColorRect" type="TextureRect" parent="Camera2D/CanvasLayer/BuildUI"]
+layout_mode = 0
+offset_left = -347.0
+offset_top = -277.391
+offset_right = 1653.0
+offset_bottom = 42.609
+scale = Vector2(0.338802, 0.338802)
+mouse_filter = 2
+texture = ExtResource("6_w62r8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/CanvasLayer/BuildUI"]
+root_node = NodePath("../../../..")
+libraries = {
+"": SubResource("AnimationLibrary_0rg2d")
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/BuildUI"]
+layout_mode = 0
+offset_left = -318.0
+offset_top = -262.0
+offset_right = 301.0
+offset_bottom = -184.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/BuildUI/ScrollContainer"]
+layout_mode = 2
+
+[node name="Lines" type="Node2D" parent="."]
+
+[node name="Line" type="Node2D" parent="Lines"]
+script = ExtResource("2_aagd3")
+max_conjs = 3
+
+[node name="Conj1" type="Node2D" parent="Lines/Line"]
+
+[node name="RedConj" parent="Lines/Line/Conj1" instance=ExtResource("9_jvcn1")]
+conj_idx = 1
+
+[node name="Conj2" type="Node2D" parent="Lines/Line"]
+position = Vector2(-113, 0)
+
+[node name="RedConj" parent="Lines/Line/Conj2" instance=ExtResource("9_jvcn1")]
+
+[node name="Conj3" type="Node2D" parent="Lines/Line"]
+position = Vector2(111, 0)
+
+[node name="RedConj" parent="Lines/Line/Conj3" instance=ExtResource("9_jvcn1")]
+
+[node name="EndPos" type="Node2D" parent="Lines/Line"]
+position = Vector2(415, 80)
+
+[node name="BoxHolder" type="Node2D" parent="Lines/Line/EndPos"]
+position = Vector2(-24, 0)
+scale = Vector2(0.419484, 0.419484)
+
+[node name="Sprite2D" type="Sprite2D" parent="Lines/Line/EndPos/BoxHolder"]
+z_index = -1
+position = Vector2(1, 0)
+texture = ExtResource("10_ulgtg")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Lines/Line/EndPos/BoxHolder"]
+z_index = 1
+texture = ExtResource("11_qc2f8")
+
+[node name="AddedText" type="Label" parent="Lines/Line"]
+modulate = Color(1, 1, 1, 0.00317878)
+offset_left = 283.0
+offset_top = -84.3268
+offset_right = 749.0
+offset_bottom = 11.6732
+scale = Vector2(0.581063, 0.581063)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("9_mcs1p")
+theme_override_font_sizes/font_size = 70
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Lines/Line/AddedText"]
+libraries = {
+"": SubResource("AnimationLibrary_u6efn")
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lines"]
+offset_left = -192.0
+offset_top = 179.0
+offset_right = -152.0
+offset_bottom = 219.0
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -260.0
+offset_top = -44.0
+offset_right = -98.0
+offset_bottom = 233.0
+scale = Vector2(0.303828, 0.303828)
+mouse_filter = 1
+script = ExtResource("10_pf3cx")
+
+[node name="Sprite2D" type="Sprite2D" parent="Button"]
+position = Vector2(85.5746, 131.653)
+rotation = -0.541816
+texture = ExtResource("11_j3cto")
+
+[node name="Node2D" type="Node2D" parent="Button"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Button/Node2D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_qgl8m")
+}
+autoplay = "loop"
+
+[node name="Size" type="AnimationPlayer" parent="Button/Node2D"]
+libraries = {
+"": SubResource("AnimationLibrary_oihan")
+}
+
+[node name="Timer" type="Timer" parent="Button"]
+wait_time = 2.0
+one_shot = true
+
+[node name="Area2D" type="Area2D" parent="Button"]
+position = Vector2(-52.6613, -13.1653)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button/Area2D"]
+position = Vector2(148.11, 157.984)
+shape = SubResource("RectangleShape2D_vhcth")
+
+[node name="ShopMenu" type="Node2D" parent="."]
+position = Vector2(1164, 0)
+script = ExtResource("13_cttnr")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ShopMenu"]
+offset_left = -551.0
+offset_top = -153.0
+offset_right = 1634.0
+offset_bottom = 1568.0
+scale = Vector2(0.428893, 0.428893)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMenu/ScrollContainer"]
+custom_minimum_size = Vector2(1000, 1000)
+layout_mode = 2
+
+[connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
+[connection signal="animation_finished" from="Button/Node2D/AnimationPlayer" to="Button" method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Button/Timer" to="Button" method="_on_timer_timeout"]
+[connection signal="mouse_entered" from="Button/Area2D" to="Button" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Button/Area2D" to="Button" method="_on_area_2d_mouse_exited"]

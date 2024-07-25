@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhbv82fgrtdc0"]
+
+[ext_resource type="Script" path="res://Conjurors/Conjuror.gd" id="1_6h68g"]
+[ext_resource type="Texture2D" uid="uid://b4br0teyxwngc" path="res://Conjurors/2_GreenConj/Green_Conj.png" id="2_d0fyv"]
+
+[node name="BlueConj" type="Node2D"]
+script = ExtResource("1_6h68g")
+pool = {
+"1": "mongus"
+}
+conj_idx = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.459178, 0.459178)
+texture = ExtResource("2_d0fyv")
+
+[node name="CandySpawn" type="Node2D" parent="."]
+position = Vector2(0, 23)
+
+[node name="CandyEnd" type="Node2D" parent="."]
+position = Vector2(0, 95)

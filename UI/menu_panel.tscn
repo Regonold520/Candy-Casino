@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=3 uid="uid://migarda7b5y6"]
+
+[ext_resource type="Script" path="res://UI/menu_panel.gd" id="1_oau6x"]
+[ext_resource type="Texture2D" uid="uid://wul13mpckv52" path="res://MiscSprites/Shop_Panel.png" id="1_s1q5y"]
+[ext_resource type="Texture2D" uid="uid://dwjcduw3dcphs" path="res://Conjurors/0_RedConj/Red_Conj.png" id="2_rcb2y"]
+[ext_resource type="FontFile" uid="uid://bjlux5js323vr" path="res://Texts/Fonts/VCRosdNEUE.ttf" id="3_dj42y"]
+[ext_resource type="Texture2D" uid="uid://bqpn11us2d1kr" path="res://MiscSprites/Shop_Shadow.png" id="3_xs6fr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_evhga"]
+size = Vector2(495.654, 666.473)
+
+[sub_resource type="Animation" id="Animation_ttuwd"]
+resource_name = "hover_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InnerNode:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.25, 0.25),
+"update": 0,
+"values": [0.0, 0.174533]
+}
+
+[sub_resource type="Animation" id="Animation_jlshb"]
+resource_name = "hover_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("InnerNode:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.25, 0.25),
+"update": 0,
+"values": [0.174533, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tegn8"]
+_data = {
+"hover_in": SubResource("Animation_ttuwd"),
+"hover_out": SubResource("Animation_jlshb")
+}
+
+[node name="MenuPanel" type="Control"]
+custom_minimum_size = Vector2(575.875, 800)
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(0.357104, 0.357104)
+mouse_filter = 2
+script = ExtResource("1_oau6x")
+metadata/_edit_horizontal_guides_ = [228.0]
+
+[node name="InnerNode" type="Node2D" parent="."]
+position = Vector2(321.233, 313.634)
+
+[node name="BG" type="Sprite2D" parent="InnerNode"]
+texture = ExtResource("1_s1q5y")
+
+[node name="Shadow" type="Sprite2D" parent="InnerNode"]
+position = Vector2(0, -56.0061)
+texture = ExtResource("3_xs6fr")
+
+[node name="ConjSprite" type="Sprite2D" parent="InnerNode"]
+position = Vector2(0, -76)
+texture = ExtResource("2_rcb2y")
+
+[node name="Name" type="Label" parent="InnerNode"]
+offset_left = -226.0
+offset_top = 112.0
+offset_right = 562.0
+offset_bottom = 188.0
+scale = Vector2(0.593458, 0.593458)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("3_dj42y")
+theme_override_font_sizes/font_size = 76
+text = "Red Conj"
+horizontal_alignment = 1
+
+[node name="Cost" type="Label" parent="InnerNode"]
+offset_left = -229.0
+offset_top = 207.0
+offset_right = 239.0
+offset_bottom = 283.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("3_dj42y")
+theme_override_font_sizes/font_size = 76
+text = "1"
+horizontal_alignment = 1
+
+[node name="Owned" type="Label" parent="."]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 720.0
+offset_right = 479.0
+offset_bottom = 796.0
+scale = Vector2(1.27556, 1.27556)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("3_dj42y")
+theme_override_font_sizes/font_size = 66
+text = "1"
+horizontal_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(321.233, 313.634)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(4.20047, 22.4025)
+shape = SubResource("RectangleShape2D_evhga")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_tegn8")
+}
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

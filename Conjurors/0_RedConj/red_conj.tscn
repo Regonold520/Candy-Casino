@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://id6ruwa6b0a1"]
+
+[ext_resource type="Script" path="res://Conjurors/Conjuror.gd" id="1_bpun5"]
+[ext_resource type="Texture2D" uid="uid://dwjcduw3dcphs" path="res://Conjurors/0_RedConj/Red_Conj.png" id="2_tv85e"]
+
+[node name="RedConj" type="Node2D"]
+script = ExtResource("1_bpun5")
+pool = {
+"1": "strawberry_ball",
+"2": "lemon_ball",
+"3": "salted_caramel",
+"4": "chilli_ball"
+}
+pool_size = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.459178, 0.459178)
+texture = ExtResource("2_tv85e")
+
+[node name="CandySpawn" type="Node2D" parent="."]
+position = Vector2(0, 23)
+
+[node name="CandyEnd" type="Node2D" parent="."]
+position = Vector2(0, 95)

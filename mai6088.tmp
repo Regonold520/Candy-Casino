@@ -1,0 +1,168 @@
+[gd_scene load_steps=15 format=3 uid="uid://g1unne7ggp20"]
+
+[ext_resource type="Script" path="res://Scripts/MainGame.gd" id="1_o8oqf"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="2_3owbm"]
+[ext_resource type="Script" path="res://Scripts/Line.gd" id="2_aagd3"]
+[ext_resource type="PackedScene" uid="uid://cao3wgrcctewd" path="res://Conjurors/0_RedConj/red_conj.tscn" id="4_r87nc"]
+[ext_resource type="PackedScene" uid="uid://kunslgr7l6jh" path="res://Conjurors/1_BlueConj/blue_conj.tscn" id="5_0x3wh"]
+[ext_resource type="Texture2D" uid="uid://7rgedrndsyd4" path="res://MiscSprites/Box_Upper.png" id="5_scnw7"]
+[ext_resource type="Texture2D" uid="uid://dy2f0ckkfc34h" path="res://MiscSprites/Box_Lower.png" id="6_5m8mq"]
+[ext_resource type="Shader" path="res://Shaders/Scroll.gdshader" id="7_6bvyh"]
+[ext_resource type="Texture2D" uid="uid://cheeob25mgy0i" path="res://MiscSprites/Sprite-0008.png" id="7_yrwjh"]
+[ext_resource type="FontFile" uid="uid://bjlux5js323vr" path="res://Texts/Fonts/VCRosdNEUE.ttf" id="9_mcs1p"]
+[ext_resource type="Script" path="res://ShopMenu.gd" id="11_7udv1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j1ty7"]
+shader = ExtResource("7_6bvyh")
+shader_parameter/speed = 0.1
+
+[sub_resource type="Animation" id="Animation_6dew6"]
+resource_name = "new_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Lines/Line/AddedText:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Vector2(361, -68), Vector2(361, -107.575)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Lines/Line/AddedText:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.5, 0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1t1e5"]
+_data = {
+"new_animation": SubResource("Animation_6dew6")
+}
+
+[node name="MainGame" type="Node2D"]
+script = ExtResource("1_o8oqf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.831373, 0.32549, 0.592157, 1)
+z_index = -255
+material = SubResource("ShaderMaterial_j1ty7")
+offset_left = -1537.0
+offset_top = -1109.0
+offset_right = 7115.0
+offset_bottom = 3552.0
+scale = Vector2(0.467316, 0.467316)
+texture = ExtResource("7_yrwjh")
+stretch_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1152, 0)
+script = ExtResource("2_3owbm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+
+[node name="AddedText" type="Label" parent="Camera2D/CanvasLayer"]
+offset_left = 13.0
+offset_top = 6.0
+offset_right = 351.0
+offset_bottom = 102.0
+scale = Vector2(0.75755, 0.75755)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("9_mcs1p")
+theme_override_font_sizes/font_size = 70
+text = "0"
+vertical_alignment = 1
+
+[node name="Lines" type="Node2D" parent="."]
+
+[node name="Line" type="Node2D" parent="Lines"]
+script = ExtResource("2_aagd3")
+max_conjs = 3
+
+[node name="Conj1" type="Node2D" parent="Lines/Line"]
+position = Vector2(-108, 0)
+
+[node name="RedConj" parent="Lines/Line/Conj1" instance=ExtResource("4_r87nc")]
+
+[node name="Conj2" type="Node2D" parent="Lines/Line"]
+position = Vector2(-2, 0)
+
+[node name="RedConj" parent="Lines/Line/Conj2" instance=ExtResource("5_0x3wh")]
+conj_idx = 2
+
+[node name="Conj3" type="Node2D" parent="Lines/Line"]
+position = Vector2(104, 0)
+
+[node name="RedConj" parent="Lines/Line/Conj3" instance=ExtResource("4_r87nc")]
+conj_idx = 3
+
+[node name="EndPos" type="Node2D" parent="Lines/Line"]
+position = Vector2(512, 85)
+
+[node name="BoxHolder" type="Node2D" parent="Lines/Line/EndPos"]
+position = Vector2(-2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Lines/Line/EndPos/BoxHolder"]
+z_index = -1
+texture_filter = 1
+position = Vector2(-41.5315, -5.53152)
+scale = Vector2(0.459178, 0.459178)
+texture = ExtResource("6_5m8mq")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Lines/Line/EndPos/BoxHolder"]
+z_index = 1
+texture_filter = 1
+position = Vector2(-42.5315, -5.53152)
+scale = Vector2(0.459178, 0.459178)
+texture = ExtResource("5_scnw7")
+
+[node name="AddedText" type="Label" parent="Lines/Line"]
+modulate = Color(1, 1, 1, 0)
+offset_left = 361.0
+offset_top = -68.0
+offset_right = 699.0
+offset_bottom = 28.0
+scale = Vector2(0.638132, 0.638132)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("9_mcs1p")
+theme_override_font_sizes/font_size = 70
+text = "20"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Lines/Line/AddedText"]
+root_node = NodePath("../../../..")
+libraries = {
+"": SubResource("AnimationLibrary_1t1e5")
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lines"]
+offset_left = -190.0
+offset_top = 189.0
+offset_right = -190.0
+offset_bottom = 189.0
+scale = Vector2(8.512, 8.512)
+
+[node name="ShopMenu" type="Node2D" parent="."]
+script = ExtResource("11_7udv1")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ShopMenu"]
+custom_minimum_size = Vector2(1114.07, 487.39)
+offset_left = 596.0
+offset_top = -115.0
+offset_right = 1710.07
+offset_bottom = 372.39
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopMenu/ScrollContainer"]
+layout_mode = 2

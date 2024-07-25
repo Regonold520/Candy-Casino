@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://dc3lu1e7j5fgf"]
+
+[ext_resource type="Script" path="res://Texts/PopupText.gd" id="1_vyaqa"]
+[ext_resource type="FontFile" uid="uid://bjlux5js323vr" path="res://Texts/Fonts/VCRosdNEUE.ttf" id="2_n1hsa"]
+
+[sub_resource type="Animation" id="Animation_awfeh"]
+resource_name = "new_animation"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.217638, 0.217638),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 16.18)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(0.217638, 0.217638),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sf4oh"]
+_data = {
+"new_animation": SubResource("Animation_awfeh")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_vyaqa")
+
+[node name="InnerNode" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="InnerNode"]
+offset_left = -118.0
+offset_top = 28.0
+offset_right = 152.0
+offset_bottom = 54.0
+scale = Vector2(0.874732, 0.874732)
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("2_n1hsa")
+theme_override_font_sizes/font_size = 25
+text = "Sigma"
+horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../InnerNode")
+libraries = {
+"": SubResource("AnimationLibrary_sf4oh")
+}
+autoplay = "new_animation"

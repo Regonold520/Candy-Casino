@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://raax08h2oukw"]
+
+[ext_resource type="Script" path="res://UI/build_panel.gd" id="1_7objw"]
+[ext_resource type="Texture2D" uid="uid://dwjcduw3dcphs" path="res://Conjurors/0_RedConj/Red_Conj.png" id="1_q8kfl"]
+[ext_resource type="FontFile" uid="uid://bjlux5js323vr" path="res://Texts/Fonts/VCRosdNEUE.ttf" id="2_accqr"]
+[ext_resource type="Texture2D" uid="uid://b40x5jr3ns6qr" path="res://Empty_Panel.png" id="2_btfb6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7yvc8"]
+size = Vector2(52, 74)
+
+[node name="BuildPanel" type="Control"]
+custom_minimum_size = Vector2(75.92, 66.54)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_7objw")
+
+[node name="BG" type="TextureRect" parent="."]
+visible = false
+modulate = Color(0.355314, 0.355314, 0.355314, 1)
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 319.0
+offset_bottom = 319.0
+scale = Vector2(0.220075, 0.220075)
+mouse_filter = 2
+texture = ExtResource("2_btfb6")
+
+[node name="Sprite" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -2.0
+offset_right = 319.0
+offset_bottom = 318.0
+scale = Vector2(0.21711, 0.21711)
+mouse_filter = 2
+texture = ExtResource("1_q8kfl")
+
+[node name="Ammount" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 11.0
+offset_top = 60.0
+offset_right = 60.0
+offset_bottom = 76.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_accqr")
+text = "x1"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(33, 37)
+shape = SubResource("RectangleShape2D_7yvc8")
+
+[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
