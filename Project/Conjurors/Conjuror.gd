@@ -10,6 +10,8 @@ var random_strength = 30
 var shake_fade = 5
 var shake_strength = 0
 
+var hovering = false
+
 @export var delay = 0
 
 var candy
@@ -24,6 +26,8 @@ var rng = RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_roll_candy()
+	
+	get_parent().get_parent().reroll.connect(_reroll)
 
 func _roll_candy():
 	if $"../..".cycle_runnable:
@@ -67,24 +71,24 @@ func _process(delta):
 		
 		triggered = true
 		
-		if conj_idx == 1:
-			$"../.."._finish_cycle()
+		$"../.."._finish_cycle()
 			
+		if candy != null:
+			var candy_anim : AnimationPlayer = candy.get_child(1)
 		
-		
-		var candy_anim : AnimationPlayer = candy.get_child(1)
-	
-		candy_anim.play("new_animation")
-		
-		await get_tree().create_timer(1.5).timeout
-		
-		var tween = create_tween()
-		
-		tween.tween_property(candy , "global_position" , $"../../EndPos".global_position ,0.35).set_trans(Tween.TRANS_EXPO)
-		
-		$"../..".cycle_money += candy.money_ammount
-		$"../..".cycle_candies.append(candy)
-		
+			candy_anim.play("new_animation")
+			
+			await get_tree().create_timer(1.5).timeout
+			
+			var tween = create_tween().set_trans(Tween.TRANS_EXPO)
+			
+			tween.tween_property(candy , "global_position" , $"../../EndPos".global_position ,0.35)
+			
+			
+			if candy != null:
+				$"../..".cycle_money += candy.money_ammount
+				$"../..".cycle_candies.append(candy)
+			
 
 func _shake_ofset() -> Vector2:
 	return Vector2(rng.randf_range(-shake_strength , shake_strength) , rng.randf_range(-shake_strength , shake_strength))
@@ -94,3 +98,7 @@ func _shake(strength , fade):
 	shake_fade = fade
 	
 	shake_strength = random_strength
+	
+func _reroll():
+	_roll_candy()
+	triggered = false

@@ -1,6 +1,7 @@
 extends Node
 
 var buildmode = true
+var selected_conj
 
 func _ready():
 	var json = _parse_json("res://Jsons/SaveData.json")

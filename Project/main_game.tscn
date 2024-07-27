@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cg5f80hb0641d"]
+[gd_scene load_steps=29 format=3 uid="uid://cg5f80hb0641d"]
 
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="2_3owbm"]
 [ext_resource type="Script" path="res://Scripts/Line.gd" id="2_aagd3"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://br7xsj52lsfx7" path="res://UI/Build_Panel.png" id="6_w62r8"]
 [ext_resource type="Shader" path="res://Shaders/Scroll.gdshader" id="7_6bvyh"]
 [ext_resource type="Texture2D" uid="uid://cheeob25mgy0i" path="res://MiscSprites/Sprite-0008.png" id="7_yrwjh"]
+[ext_resource type="Texture2D" uid="uid://b6y8nnfp2vjt5" path="res://UI/Conj_Platform.png" id="8_0sp7b"]
+[ext_resource type="Script" path="res://conj_holder.gd" id="8_ihlav"]
 [ext_resource type="PackedScene" uid="uid://id6ruwa6b0a1" path="res://Conjurors/0_RedConj/red_conj.tscn" id="9_jvcn1"]
 [ext_resource type="FontFile" uid="uid://bjlux5js323vr" path="res://Texts/Fonts/VCRosdNEUE.ttf" id="9_mcs1p"]
 [ext_resource type="Script" path="res://Button.gd" id="10_pf3cx"]
@@ -52,6 +54,9 @@ _data = {
 "in": SubResource("Animation_3xx7i"),
 "out": SubResource("Animation_4gm7p")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oc3lo"]
+size = Vector2(80, 140)
 
 [sub_resource type="Animation" id="Animation_38jeh"]
 resource_name = "new_animation"
@@ -221,37 +226,79 @@ layout_mode = 2
 
 [node name="Line" type="Node2D" parent="Lines"]
 script = ExtResource("2_aagd3")
-max_conjs = 3
 
 [node name="Conj1" type="Node2D" parent="Lines/Line"]
+position = Vector2(109, 0)
+script = ExtResource("8_ihlav")
 
-[node name="RedConj" parent="Lines/Line/Conj1" instance=ExtResource("9_jvcn1")]
+[node name="Platform" type="Sprite2D" parent="Lines/Line/Conj1"]
+z_index = -1
+texture_filter = 1
+position = Vector2(0, 60)
+scale = Vector2(0.352979, 0.352979)
+texture = ExtResource("8_0sp7b")
+
+[node name="Area2D" type="Area2D" parent="Lines/Line/Conj1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lines/Line/Conj1/Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_oc3lo")
+
+[node name="0_RedConj" parent="Lines/Line/Conj1" instance=ExtResource("9_jvcn1")]
 conj_idx = 1
 
 [node name="Conj2" type="Node2D" parent="Lines/Line"]
-position = Vector2(-113, 0)
+position = Vector2(-1, 0)
+script = ExtResource("8_ihlav")
 
-[node name="RedConj" parent="Lines/Line/Conj2" instance=ExtResource("9_jvcn1")]
+[node name="Platform" type="Sprite2D" parent="Lines/Line/Conj2"]
+z_index = -1
+texture_filter = 1
+position = Vector2(0, 60)
+scale = Vector2(0.352979, 0.352979)
+texture = ExtResource("8_0sp7b")
+
+[node name="Area2D" type="Area2D" parent="Lines/Line/Conj2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lines/Line/Conj2/Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_oc3lo")
+
+[node name="0_RedConj" parent="Lines/Line/Conj2" instance=ExtResource("9_jvcn1")]
 
 [node name="Conj3" type="Node2D" parent="Lines/Line"]
-position = Vector2(111, 0)
+position = Vector2(-115, 0)
+script = ExtResource("8_ihlav")
 
-[node name="RedConj" parent="Lines/Line/Conj3" instance=ExtResource("9_jvcn1")]
+[node name="Platform" type="Sprite2D" parent="Lines/Line/Conj3"]
+z_index = -1
+texture_filter = 1
+position = Vector2(0, 60)
+scale = Vector2(0.352979, 0.352979)
+texture = ExtResource("8_0sp7b")
+
+[node name="Area2D" type="Area2D" parent="Lines/Line/Conj3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lines/Line/Conj3/Area2D"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_oc3lo")
+
+[node name="0_RedConj" parent="Lines/Line/Conj3" instance=ExtResource("9_jvcn1")]
 
 [node name="EndPos" type="Node2D" parent="Lines/Line"]
 position = Vector2(415, 80)
 
 [node name="BoxHolder" type="Node2D" parent="Lines/Line/EndPos"]
-position = Vector2(-24, 0)
 scale = Vector2(0.419484, 0.419484)
 
 [node name="Sprite2D" type="Sprite2D" parent="Lines/Line/EndPos/BoxHolder"]
 z_index = -1
-position = Vector2(1, 0)
+position = Vector2(-144.137, 0)
 texture = ExtResource("10_ulgtg")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Lines/Line/EndPos/BoxHolder"]
 z_index = 1
+position = Vector2(-145.137, 0)
 texture = ExtResource("11_qc2f8")
 
 [node name="AddedText" type="Label" parent="Lines/Line"]
@@ -335,6 +382,12 @@ scale = Vector2(0.428893, 0.428893)
 custom_minimum_size = Vector2(1000, 1000)
 layout_mode = 2
 
+[connection signal="mouse_entered" from="Lines/Line/Conj1/Area2D" to="Lines/Line/Conj1" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Lines/Line/Conj1/Area2D" to="Lines/Line/Conj1" method="_on_area_2d_mouse_exited"]
+[connection signal="mouse_entered" from="Lines/Line/Conj2/Area2D" to="Lines/Line/Conj2" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Lines/Line/Conj2/Area2D" to="Lines/Line/Conj2" method="_on_area_2d_mouse_exited"]
+[connection signal="mouse_entered" from="Lines/Line/Conj3/Area2D" to="Lines/Line/Conj3" method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Lines/Line/Conj3/Area2D" to="Lines/Line/Conj3" method="_on_area_2d_mouse_exited"]
 [connection signal="pressed" from="Button" to="Button" method="_on_pressed"]
 [connection signal="animation_finished" from="Button/Node2D/AnimationPlayer" to="Button" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Button/Timer" to="Button" method="_on_timer_timeout"]

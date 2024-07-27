@@ -64,3 +64,4 @@ func _reset_selected(idx):
 		
 		if i == idx:
 			$ScrollContainer/HBoxContainer.get_child(i).find_child("BG").visible = true
+			$ScrollContainer/HBoxContainer.get_child(i).find_child("AnimationPlayer").play("in")

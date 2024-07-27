@@ -1,11 +1,12 @@
 extends Button
 
-var can_press = true
+var can_press = false
 signal buildmode_toggled
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$Timer.start()
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,6 +19,7 @@ func _on_pressed():
 		can_press = false
 		
 		buildmode_toggled.emit()
+
 		GlobalVars.buildmode = !GlobalVars.buildmode
 		
 		$"../Lines/Line".cycle_runnable = !$"../Lines/Line".cycle_runnable 

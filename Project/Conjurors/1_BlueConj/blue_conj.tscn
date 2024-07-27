@@ -1,12 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://kunslgr7l6jh"]
+[gd_scene load_steps=6 format=3 uid="uid://kunslgr7l6jh"]
 
 [ext_resource type="Script" path="res://Conjurors/Conjuror.gd" id="1_une11"]
 [ext_resource type="Texture2D" uid="uid://btp8xk4440l20" path="res://Conjurors/1_BlueConj/Blue_Conj.png" id="2_enlt1"]
 
-[node name="BlueConj" type="Node2D"]
+[sub_resource type="Animation" id="Animation_wrkx2"]
+resource_name = "build_hover_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.170755, 0.170755),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_4kh63"]
+resource_name = "build_hover_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.170755, 0.170755),
+"update": 0,
+"values": [Color(1, 1, 1, 0.5), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gvnt0"]
+_data = {
+"build_hover_in": SubResource("Animation_wrkx2"),
+"build_hover_out": SubResource("Animation_4kh63")
+}
+
+[node name="1_BlueConj" type="Node2D"]
 script = ExtResource("1_une11")
 pool = {
-"1": "mongus"
+"1": "chilli_ball"
 }
 conj_idx = 1
 
@@ -20,3 +56,8 @@ position = Vector2(0, 23)
 
 [node name="CandyEnd" type="Node2D" parent="."]
 position = Vector2(0, 95)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gvnt0")
+}

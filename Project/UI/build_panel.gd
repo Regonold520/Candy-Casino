@@ -13,6 +13,7 @@ func _process(delta):
 	if hovering and Input.is_action_just_pressed("Input"):
 		print(idx)
 		get_parent().get_parent().get_parent()._reset_selected(idx)
+		GlobalVars.selected_conj = name
 
 
 func _on_area_2d_mouse_entered():

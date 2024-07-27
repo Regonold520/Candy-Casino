@@ -6,9 +6,12 @@ var triggered = false
 
 var conjs_finished = 0
 
-signal cycle_finished
+var increment = 0
 
-@export var max_conjs = 9
+signal cycle_finished
+signal reroll
+
+@export var max_conjs = 3
 
 var cycle_money = 0
 var cycle_candies = []
@@ -26,12 +29,11 @@ var label_scene : PackedScene = preload("res://Texts/raw_label.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	max_conjs = get_child_count() - 2
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	if shake_strength > 0:
 		shake_strength = lerpf(shake_strength , 0 , shake_fade * delta)
 		
@@ -42,42 +44,47 @@ func _process(delta):
 		triggered = true
 		
 func _reroll():
-	for i in max_conjs:
-		find_child("Conj" + str(i + 1)).get_child(0)._roll_candy()
+	reroll.emit()
 
 func _finish_cycle():
-	print(cycle_types)
-	_check_cycle_types()
+	increment += 1
 	
-	await get_tree().create_timer(1.77).timeout
-	
-	
-	
-	_shake(15 , 8)
-	
-	for i in cycle_candies.size():
-		cycle_candies[i].queue_free()
+	if increment == max_conjs:
+		increment = 0
 		
-	for i in max_conjs:
-		find_child("Conj" + str(i + 1)).get_child(0)._roll_candy()
-		find_child("Conj" + str(i + 1)).get_child(0).triggered = false
+		print(cycle_types)
+		_check_cycle_types()
 		
-	cycle_money = roundi(cycle_money)
+		await get_tree().create_timer(1.77).timeout
 		
-	GlobalVars._add_money(cycle_money , false)
-	
-	$"AddedText".text = "+" + str(cycle_money)
-	
-	$"AddedText/AnimationPlayer".play("new_animation")
-	
-	conjs_finished = 0
-	triggered = false
-	cycle = true
-	cycle_candies = []
-	cycle_types = []
-	cycle_money = 0
-	
-	cycle_finished.emit()
+		
+		
+		_shake(15 , 8)
+		
+		for i in cycle_candies.size():
+			if cycle_candies[i] != null:
+				cycle_candies[i].queue_free()
+		
+		
+		reroll.emit()
+
+			
+		cycle_money = roundi(cycle_money)
+			
+		GlobalVars._add_money(cycle_money , false)
+		
+		$"AddedText".text = "+" + str(cycle_money)
+		
+		$"AddedText/AnimationPlayer".play("new_animation")
+		
+		conjs_finished = 0
+		triggered = false
+		cycle = true
+		cycle_candies = []
+		cycle_types = []
+		cycle_money = 0
+		
+		cycle_finished.emit()
 	
 
 func _check_cycle_types():
